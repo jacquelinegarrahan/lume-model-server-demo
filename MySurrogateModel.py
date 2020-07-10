@@ -31,121 +31,121 @@ def apply_temporary_ordering_patch(ordering, prefix):
     return rebuilt_order
 
 
-input_variables = {
-    "laser_radius": ScalarInputVariable(
-        name="laser_radius",
-        value=3.47986980e-01,
-        units="mm",
-        range=[1.000000e-01, 5.000000e-01],
-    ),
-    "maxb(2)": ScalarInputVariable(
-        name="maxb(2)",
-        value=4.02751972e-02,
-        units="T",
-        range=[0.000000e00, 1.000000e-01],
-    ),
-    "phi(1)": ScalarInputVariable(
-        name="phi(1)",
-        value=-7.99101687e00,
-        units="degrees",
-        range=[-1.000000e01, 1.000000e01],
-    ),
-    "total_charge:value": ScalarInputVariable(
-        name="total_charge:value",
-        value=-3.53964583e-04,
-        units="m",
-        range=[-1.117627e-01, 1.120053e-01],
-    ),
-    "in_xmin": ScalarInputVariable(
-        name="in_xmin",
-        value=-3.47874295e-04,
-        units="m",
-        range=[-1.117627e-01, 1.120053e-01],
-    ),
-    "in_ymin": ScalarInputVariable(
-        name="in_ymin",
-        value=-3.47874295e-04,
-        units="m",
-        range=[-1.117627e-01, 1.120053e-01],
-    ),
-    "in_xmax": ScalarInputVariable(
-        name="in_xmax",
-        value=-3.47874295e-04,
-        units="m",
-        range=[-1.117627e-01, 1.120053e-01],
-    ),
-    "in_ymax": ScalarInputVariable(
-        name="in_ymax",
-        value=-3.47874295e-04,
-        units="m",
-        range=[-1.117627e-01, 1.120053e-01],
-    ),
-    "input_image": ImageInputVariable(
-        name="input_image",
-        value=np.zeros((50, 50)),
-        default=np.zeros((50, 50)),
-        axis_labels=["x", "y"],
-        range=[0, 10],
-    ),
-}
-
-output_variables = {
-    "end_core_emit_95percent_x": ScalarOutputVariable(
-        name="end_core_emit_95percent_x", default=0.0, units="mm-rad"
-    ),
-    "end_core_emit_95percent_y": ScalarOutputVariable(
-        name="end_core_emit_95percent_y", default=0.0, units="mm-rad"
-    ),
-    "end_core_emit_95percent_z": ScalarOutputVariable(
-        name="end_core_emit_95percent_z", default=0.0, units="mm-rad"
-    ),
-    "end_mean_kinetic_energy": ScalarOutputVariable(
-        name="end_mean_kinetic_energy", default=0.0, units="eV"
-    ),
-    "end_mean_x": ScalarOutputVariable(name="end_mean_x", default=0.0, units="mm"),
-    "end_mean_y": ScalarOutputVariable(name="end_mean_y", default=0.0, units="mm"),
-    "end_n_particle_loss": ScalarOutputVariable(
-        name="end_n_particle_loss", default=0.0, units="number"
-    ),
-    "end_norm_emit_x": ScalarOutputVariable(
-        name="end_norm_emit_x", default=0.0, units="mm-mrad",
-    ),
-    "end_norm_emit_y": ScalarOutputVariable(
-        name="end_norm_emit_y", default=0.0, units="mm-mrad",
-    ),
-    "end_norm_emit_z": ScalarOutputVariable(
-        name="end_norm_emit_z", default=0.0, units="mm-mrad",
-    ),
-    "end_sigma_x": ScalarOutputVariable(name="end_sigma_x", default=0.0, units="mm"),
-    "end_sigma_xp": ScalarOutputVariable(
-        name="end_sigma_xp", default=0.0, units="mrad"
-    ),
-    "end_sigma_y": ScalarOutputVariable(name="end_sigma_y", default=0.0, units="mm"),
-    "end_sigma_yp": ScalarOutputVariable(
-        name="end_sigma_yp", default=0.0, units="mrad"
-    ),
-    "end_sigma_z": ScalarOutputVariable(name="end_sigma_z", default=0.0, units="mm"),
-    "end_total_charge": ScalarOutputVariable(
-        name="end_total_charge", default=0.0, units="C",
-    ),
-    "out_xmin": ScalarOutputVariable(name="out_xmin", default=0.0, units="m"),
-    "out_xmax": ScalarOutputVariable(name="out_xmax", default=0.0, units="m"),
-    "out_ymin": ScalarOutputVariable(name="out_ymin", default=0.0, units="m"),
-    "out_ymax": ScalarOutputVariable(name="out_ymax", default=0.0, units="m"),
-    "x:y": ImageOutputVariable(
-        name="x:y", shape=(50, 50), units=["mm", "mm"], axis_labels=["x", "y"]
-    ),
-}
-
-
 class MySurrogateModel(SurrogateModel):
     """
-Example Usage:
+    Example Usage:
     Load model and use a dictionary of inputs to evaluate the NN.
     """
 
-    input_variables = input_variables
-    output_variables = output_variables
+
+    # DEFINE INPUT + OUTPUT VARIABLES
+    # SUBCLASSING THE lume-model SURROGATE MODEL CLASS ENFORCES THAT THESE ARE DEFINED
+
+    input_variables = {
+        "laser_radius": ScalarInputVariable(
+            name="laser_radius",
+            value=3.47986980e-01,
+            units="mm",
+            range=[1.000000e-01, 5.000000e-01],
+        ),
+        "maxb(2)": ScalarInputVariable(
+            name="maxb(2)",
+            value=4.02751972e-02,
+            units="T",
+            range=[0.000000e00, 1.000000e-01],
+        ),
+        "phi(1)": ScalarInputVariable(
+            name="phi(1)",
+            value=-7.99101687e00,
+            units="degrees",
+            range=[-1.000000e01, 1.000000e01],
+        ),
+        "total_charge:value": ScalarInputVariable(
+            name="total_charge:value",
+            value=-3.53964583e-04,
+            units="m",
+            range=[-1.117627e-01, 1.120053e-01],
+        ),
+        "in_xmin": ScalarInputVariable(
+            name="in_xmin",
+            value=-3.47874295e-04,
+            units="m",
+            range=[-1.117627e-01, 1.120053e-01],
+        ),
+        "in_ymin": ScalarInputVariable(
+            name="in_ymin",
+            value=-3.47874295e-04,
+            units="m",
+            range=[-1.117627e-01, 1.120053e-01],
+        ),
+        "in_xmax": ScalarInputVariable(
+            name="in_xmax",
+            value=-3.47874295e-04,
+            units="m",
+            range=[-1.117627e-01, 1.120053e-01],
+        ),
+        "in_ymax": ScalarInputVariable(
+            name="in_ymax",
+            value=-3.47874295e-04,
+            units="m",
+            range=[-1.117627e-01, 1.120053e-01],
+        ),
+        "input_image": ImageInputVariable(
+            name="input_image",
+            value=np.zeros((50, 50)),
+            default=np.zeros((50, 50)),
+            axis_labels=["x", "y"],
+            range=[0, 10],
+        ),
+    }
+
+    output_variables = {
+        "end_core_emit_95percent_x": ScalarOutputVariable(
+            name="end_core_emit_95percent_x", default=0.0, units="mm-rad"
+        ),
+        "end_core_emit_95percent_y": ScalarOutputVariable(
+            name="end_core_emit_95percent_y", default=0.0, units="mm-rad"
+        ),
+        "end_core_emit_95percent_z": ScalarOutputVariable(
+            name="end_core_emit_95percent_z", default=0.0, units="mm-rad"
+        ),
+        "end_mean_kinetic_energy": ScalarOutputVariable(
+            name="end_mean_kinetic_energy", default=0.0, units="eV"
+        ),
+        "end_mean_x": ScalarOutputVariable(name="end_mean_x", default=0.0, units="mm"),
+        "end_mean_y": ScalarOutputVariable(name="end_mean_y", default=0.0, units="mm"),
+        "end_n_particle_loss": ScalarOutputVariable(
+            name="end_n_particle_loss", default=0.0, units="number"
+        ),
+        "end_norm_emit_x": ScalarOutputVariable(
+            name="end_norm_emit_x", default=0.0, units="mm-mrad",
+        ),
+        "end_norm_emit_y": ScalarOutputVariable(
+            name="end_norm_emit_y", default=0.0, units="mm-mrad",
+        ),
+        "end_norm_emit_z": ScalarOutputVariable(
+            name="end_norm_emit_z", default=0.0, units="mm-mrad",
+        ),
+        "end_sigma_x": ScalarOutputVariable(name="end_sigma_x", default=0.0, units="mm"),
+        "end_sigma_xp": ScalarOutputVariable(
+            name="end_sigma_xp", default=0.0, units="mrad"
+        ),
+        "end_sigma_y": ScalarOutputVariable(name="end_sigma_y", default=0.0, units="mm"),
+        "end_sigma_yp": ScalarOutputVariable(
+            name="end_sigma_yp", default=0.0, units="mrad"
+        ),
+        "end_sigma_z": ScalarOutputVariable(name="end_sigma_z", default=0.0, units="mm"),
+        "end_total_charge": ScalarOutputVariable(
+            name="end_total_charge", default=0.0, units="C",
+        ),
+        "out_xmin": ScalarOutputVariable(name="out_xmin", default=0.0, units="m"), # UNUSED
+        "out_xmax": ScalarOutputVariable(name="out_xmax", default=0.0, units="m"), # UNUSED
+        "out_ymin": ScalarOutputVariable(name="out_ymin", default=0.0, units="m"), # UNUSED
+        "out_ymax": ScalarOutputVariable(name="out_ymax", default=0.0, units="m"), # UNUSED
+        "x:y": ImageOutputVariable(
+            name="x:y", shape=(50, 50), units=["mm", "mm"], axis_labels=["x", "y"]
+        ),
+    }
 
     def __init__(self, model_file=None, stock_image_input=None):
         # Save init
@@ -260,6 +260,7 @@ Example Usage:
 
         return output
 
+    # SUBCLASSING THE SURROGATE MODEL SUBCLASS ENFORCES THAT THIS IS DEFINED
     def evaluate(self, input_variables):
         settings = {variable.name: variable.value for variable in input_variables}
         if not "image" in settings:
@@ -296,6 +297,7 @@ Example Usage:
         predicted_output["extents"] = predicted_extents
         predicted_output["image"] = predicted_image_unscaled
 
+        # PREPARE OUTPUTS WILL FORMAT RETURN VARIABLES
         return self.prepare_outputs(predicted_output)
 
     def evaluate_image(self, settings, position_scale=10e6):
@@ -382,6 +384,7 @@ Example Usage:
         self.output_variables["x:y"].value = predicted_output["image"].reshape(
             (self.bins[0], self.bins[1])
         )
+
         self.output_variables["x:y"].x_min = extents[0]
         self.output_variables["x:y"].x_max = extents[1]
         self.output_variables["x:y"].y_min = extents[2]
