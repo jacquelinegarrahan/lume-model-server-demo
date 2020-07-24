@@ -44,58 +44,61 @@ class MySurrogateModel(SurrogateModel):
     input_variables = {
         "laser_radius": ScalarInputVariable(
             name="laser_radius",
-            value=3.47986980e-01,
+            default=3.47986980e-01,
             units="mm",
             range=[1.000000e-01, 5.000000e-01],
         ),
         "maxb(2)": ScalarInputVariable(
             name="maxb(2)",
-            value=4.02751972e-02,
+            default=4.02751972e-02,
             units="T",
             range=[0.000000e00, 1.000000e-01],
         ),
         "phi(1)": ScalarInputVariable(
             name="phi(1)",
-            value=-7.99101687e00,
+            default=-7.99101687e00,
             units="degrees",
             range=[-1.000000e01, 1.000000e01],
         ),
         "total_charge:value": ScalarInputVariable(
             name="total_charge:value",
-            value=-3.53964583e-04,
+            default=-3.53964583e-04,
             units="m",
             range=[-1.117627e-01, 1.120053e-01],
         ),
         "in_xmin": ScalarInputVariable(
             name="in_xmin",
-            value=-3.47874295e-04,
+            default=-3.47874295e-04,
             units="m",
             range=[-1.117627e-01, 1.120053e-01],
         ),
         "in_ymin": ScalarInputVariable(
             name="in_ymin",
-            value=-3.47874295e-04,
+            default=-3.47874295e-04,
             units="m",
             range=[-1.117627e-01, 1.120053e-01],
         ),
         "in_xmax": ScalarInputVariable(
             name="in_xmax",
-            value=-3.47874295e-04,
+            default=-3.47874295e-04,
             units="m",
             range=[-1.117627e-01, 1.120053e-01],
         ),
         "in_ymax": ScalarInputVariable(
             name="in_ymax",
-            value=-3.47874295e-04,
+            default=-3.47874295e-04,
             units="m",
             range=[-1.117627e-01, 1.120053e-01],
         ),
         "input_image": ImageInputVariable(
             name="input_image",
-            value=np.zeros((50, 50)),
             default=np.zeros((50, 50)),
             axis_labels=["x", "y"],
             range=[0, 10],
+            x_min = 0,
+            y_min = 0,
+            x_max = 0,
+            y_max = 0
         ),
     }
 
@@ -262,7 +265,19 @@ class MySurrogateModel(SurrogateModel):
 
     # SUBCLASSING THE SURROGATE MODEL SUBCLASS ENFORCES THAT THIS IS DEFINED
     def evaluate(self, input_variables):
-        settings = {variable.name: variable.value for variable in input_variables}
+        settings = {}
+        for variable_name in self.input_ordering:
+            if variable_name in input_variables:
+                if input_variables[variable_name].value:
+                    settings[variable_name] = input_variables[variable_name].value
+
+                else:
+                    settings[variable_name] = input_variables[variable_name].default
+
+            else:
+                settings[variable_name] = self.input_variables[variable_name].default
+
+
         if not "image" in settings:
             settings["image"] = self.stock_image_input
 
