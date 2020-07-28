@@ -4,6 +4,7 @@ import copy
 import numpy as np
 import tensorflow as tf
 from tensorflow import keras
+from abc import ABC, abstractmethod
 
 from lume_model.models import SurrogateModel
 from lume_model.utils import load_variables
@@ -16,7 +17,7 @@ from lume_model.variables import (
 
  
 
-class BaseModel:
+class BaseKerasModel(SurrogateModel, ABC):
     def __init__(self, *, model_file, input_variables, output_variables):
 
         # Save init
@@ -27,12 +28,9 @@ class BaseModel:
         # Load attributes from file
         with h5py.File(self.model_file, "r") as h5:
             self.attrs = dict(h5.attrs)
-            print("Loaded Attributes successfully")
 
         # Load model etc.
         self.json_string = self.attrs["JSON"]
-
-        print("Loaded Architecture successfully")
 
         # load model in thread safe manner
         self.thread_graph = tf.Graph()
@@ -42,30 +40,27 @@ class BaseModel:
             )
             self.model.load_weights("files/CNN_060420_SurrogateModel.h5")
 
-        print("Loaded Weights successfully")
-
     # SUBCLASSING THE SURROGATE MODEL SUBCLASS ENFORCES THAT THIS IS DEFINED
     def evaluate(self, input_variables):
+        input_dictionary = {} # maps variable_name -> value
 
-        # ALL BELOW -> ONLINE SURROGATE
-        settings = {}
-
+        # convert list of input variables to dictionary
         input_variables = {input_variable.name: input_variable for input_variable in input_variables}
 
+        # prepare input dictionary, accounting for any missing values using defaults
         for variable_name in self.input_ordering:
             if variable_name in input_variables:
                 if input_variables[variable_name].value is not None:
-                    settings[variable_name] = input_variables[variable_name].value
+                    input_dictionary[variable_name] = input_variables[variable_name].value
 
                 else:
-                    settings[variable_name] = input_variables[variable_name].default
+                    input_dictionary[variable_name] = input_variables[variable_name].default
 
             else:
-                settings[variable_name] = self.input_variables[variable_name].default
+                input_dictionary[variable_name] = self.input_variables[variable_name].default
 
-        # MUST IMPLEMENT A SETTINGS FORMAT FROM DICT -> MODEL INPUT
-        formatted_input = self.format_input(settings)
-        # __________________________________________
+        # MUST IMPLEMENT A format_input METHOD TO CONVERT FROM DICT -> MODEL INPUT
+        formatted_input = self.format_input(input_dictionary)
 
         # call prediction in threadsafe manner
         with self.thread_graph.as_default():
@@ -78,7 +73,6 @@ class BaseModel:
         return self.prepare_outputs(output)
 
 
-    # CAN BE IN BASE
     def random_evaluate(self):
         random_input = copy.deepcopy(self.input_variables)
         for variable in self.input_ordering:
@@ -95,6 +89,15 @@ class BaseModel:
 
         return pred
 
+    @abstractmethod
+    def format_input(self, input_dictionary):
+        # MUST IMPLEMENT A METHOD TO CONVERT INPUT DICTIONARY TO MODEL INPUT
+        pass
+
+    @abstractmethod
+    def parse_output(self, model_output):
+        # MUST IMPLEMENT A METHOD TO CONVERT MODEL OUTPUT TO A DICTIONARY OF VARIABLE NAME -> VALUE
+        pass
 
     # CAN BE IN BASE
     def prepare_outputs(self, predicted_output):
@@ -102,21 +105,12 @@ class BaseModel:
         Prepares the model outputs to be served so no additional
         manipulation happens in the OnlineSurrogateModel class
 
-        Parameters
-        ----------
-        model_outputs: dict
-            Dictionary of output variables to np.ndarrays of outputs
+        Args:
+            model_outputs (dict): Dictionary of output variables to np.ndarrays of outputs
 
-        Returns
-        -------
-        dict
-            Dictionary of output variables to respective scalars
-            (reduced dimensionality of the numpy arrays)
+        Returns:
+            dict: Dictionary of output variables to respective scalars
 
-        Note
-        ----
-        This could also be accomplished by reshaping/sampling the arrays
-        in scaling.
         """
         for variable in self.output_variables.values():
             if variable.variable_type == "scalar":
@@ -154,7 +148,7 @@ class BaseModel:
 
 
 
-class ScaledModel(BaseModel):
+class ScaledModel(BaseKerasModel):
     """
     Example Usage:
     Load model and use a dictionary of inputs to evaluate the NN.
@@ -162,8 +156,6 @@ class ScaledModel(BaseModel):
 
     def __init__(self, *, model_file=None, input_variables=None, output_variables=None):
         super().__init__(model_file=model_file, input_variables=input_variables, output_variables=output_variables)
-
-        # CHECK FOR ATTRIBUTES
 
         # Collect attributes
         self.input_ordering = self.attrs["input_ordering"]
