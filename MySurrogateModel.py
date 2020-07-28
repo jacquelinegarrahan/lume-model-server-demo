@@ -62,21 +62,21 @@ class MySurrogateModel(SurrogateModel):
         ),
         "total_charge:value": ScalarInputVariable(
             name="total_charge:value",
-            default=-3.53964583e-04,
+            default=0.0,
             units="m",
-            range=[-1.117627e-01, 1.120053e-01],
+            range=[0.0, 300],
         ),
         "in_xmin": ScalarInputVariable(
             name="in_xmin",
             default=-3.47874295e-04,
             units="m",
-            range=[-1.117627e-01, 1.120053e-01],
+            range=[-4.216e-04, 3.977e-04],
         ),
         "in_ymin": ScalarInputVariable(
             name="in_ymin",
             default=-3.47874295e-04,
             units="m",
-            range=[-1.117627e-01, 1.120053e-01],
+            range=[-4.216e-04, 3.977e-04],
         ),
         "in_xmax": ScalarInputVariable(
             name="in_xmax",
@@ -229,8 +229,8 @@ class MySurrogateModel(SurrogateModel):
         return data_scaled
 
     def unscale_image(self, image_values):
-        data_scaled = ((image_values / 2) + self.image_offset) * self.image_scale
-        return data_scaled
+        data_unscaled = ((image_values / 2) + self.image_offset) * self.image_scale
+        return data_unscaled
 
     def unscale_inputs(self, input_values):
         data_unscaled = (
@@ -266,9 +266,12 @@ class MySurrogateModel(SurrogateModel):
     # SUBCLASSING THE SURROGATE MODEL SUBCLASS ENFORCES THAT THIS IS DEFINED
     def evaluate(self, input_variables):
         settings = {}
+
+        input_variables = {input_variable.name: input_variable for input_variable in input_variables}
+
         for variable_name in self.input_ordering:
             if variable_name in input_variables:
-                if input_variables[variable_name].value:
+                if input_variables[variable_name].value is not None:
                     settings[variable_name] = input_variables[variable_name].value
 
                 else:
@@ -277,8 +280,7 @@ class MySurrogateModel(SurrogateModel):
             else:
                 settings[variable_name] = self.input_variables[variable_name].default
 
-
-        if not "image" in settings:
+        if not "images" in settings:
             settings["image"] = self.stock_image_input
 
         vec = np.array([settings[key] for key in self.input_ordering])
@@ -296,6 +298,7 @@ class MySurrogateModel(SurrogateModel):
         predicted_image_scaled = np.array(predicted_output[0])
         predicted_scalars_scaled = predicted_output[1]
         predicted_scalars_unscaled = self.unscale_outputs(predicted_scalars_scaled)
+
         predicted_extents = predicted_scalars_unscaled[
             :, int(self.scalar_outputs - self.ndim[0]) :
         ]
@@ -306,11 +309,13 @@ class MySurrogateModel(SurrogateModel):
         )
 
         predicted_output = dict(zip(self.output_ordering, predicted_scalars_unscaled.T))
-        predicted_image = predicted_image_unscaled.reshape(
+
+        predicted_output["extents"] = predicted_extents
+        predicted_output["x:y"] = predicted_image_unscaled.reshape(
             (int(self.bins[0]), int(self.bins[1]))
         )
-        predicted_output["extents"] = predicted_extents
-        predicted_output["image"] = predicted_image_unscaled
+
+        self.prior_settings = settings
 
         # PREPARE OUTPUTS WILL FORMAT RETURN VARIABLES
         return self.prepare_outputs(predicted_output)
@@ -396,10 +401,8 @@ class MySurrogateModel(SurrogateModel):
         # update image
         extents = list(predicted_output["extents"][0])
 
-        self.output_variables["x:y"].value = predicted_output["image"].reshape(
-            (self.bins[0], self.bins[1])
-        )
 
+        self.output_variables["x:y"].value = predicted_output["x:y"]
         self.output_variables["x:y"].x_min = extents[0]
         self.output_variables["x:y"].x_max = extents[1]
         self.output_variables["x:y"].y_min = extents[2]
