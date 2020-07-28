@@ -38,7 +38,7 @@ class BaseKerasModel(SurrogateModel, ABC):
             self.model = tf.keras.models.model_from_json(
                 self.json_string.decode("utf-8")
             )
-            self.model.load_weights("files/CNN_060420_SurrogateModel.h5")
+            self.model.load_weights(model_file)
 
     # SUBCLASSING THE SURROGATE MODEL SUBCLASS ENFORCES THAT THIS IS DEFINED
     def evaluate(self, input_variables):
@@ -88,18 +88,7 @@ class BaseKerasModel(SurrogateModel, ABC):
         pred = self.evaluate(random_input)
 
         return pred
-
-    @abstractmethod
-    def format_input(self, input_dictionary):
-        # MUST IMPLEMENT A METHOD TO CONVERT INPUT DICTIONARY TO MODEL INPUT
-        pass
-
-    @abstractmethod
-    def parse_output(self, model_output):
-        # MUST IMPLEMENT A METHOD TO CONVERT MODEL OUTPUT TO A DICTIONARY OF VARIABLE NAME -> VALUE
-        pass
-
-    # CAN BE IN BASE
+    
     def prepare_outputs(self, predicted_output):
         """
         Prepares the model outputs to be served so no additional
@@ -145,6 +134,16 @@ class BaseKerasModel(SurrogateModel, ABC):
                     ]
 
         return list(self.output_variables.values())
+
+    @abstractmethod
+    def format_input(self, input_dictionary):
+        # MUST IMPLEMENT A METHOD TO CONVERT INPUT DICTIONARY TO MODEL INPUT
+        pass
+
+    @abstractmethod
+    def parse_output(self, model_output):
+        # MUST IMPLEMENT A METHOD TO CONVERT MODEL OUTPUT TO A DICTIONARY OF VARIABLE NAME -> VALUE
+        pass
 
 
 
