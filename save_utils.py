@@ -192,7 +192,7 @@ def save_model(
 
     # save variables
     input_variables, output_variables = build_variables_from_description_file(
-        variable_filename, input_extras, output_extras
+        description_file, input_extras, output_extras
     )
     save_variables(input_variables, output_variables, variable_filename)
 

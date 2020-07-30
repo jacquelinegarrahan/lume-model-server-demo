@@ -154,25 +154,25 @@
             "variable_type": "scalar",
             "default": 0.0, 
             "units":"m",
-            "parent_variable": "input_image"
+            "parent_variable": "x:y"
         },
         "out_xmax": {
             "variable_type": "scalar",
             "default": 0.0, 
             "units":"m",
-            "parent_variable": "input_image"
+            "parent_variable": "x:Y"
         },
         "out_ymin": {
             "variable_type": "scalar",
             "default": 0.0, 
             "units":"m",
-            "parent_variable": "input_image"
+            "parent_variable": "x:y"
         },
         "out_ymax": {
             "variable_type": "scalar",
             "default": 0.0, 
             "units":"m",
-            "parent_variable": "input_image"
+            "parent_variable": "x:y"
         }
     }
 }
