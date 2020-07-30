@@ -167,7 +167,7 @@ def save_model(
     """
 
     # Everything will be saved into this h5
-    h = h5py.File(filename, "a")
+    h = h5py.File(weight_file, "a")
 
     # Contains model architecture as JSON string
     if JSONFile:
