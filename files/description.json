@@ -1,0 +1,178 @@
+{
+    "name": "lcls2_gunb_eic",
+    "description": "LCLS-II Early Injector Commissioning (EIC) setup",
+    "input_variables": {
+        "input_image": {
+            "variable_type": "image",
+            "axis_labels": ["x", "y"],
+            "range": [0,10],
+            "shape": [50,50],
+            "x_min_variable": "in_xmin",
+            "x_max_variable": "in_xmax", 
+            "y_min_variable": "in_ymin",
+            "y_max_variable": "in_ymax"  
+        },
+        "maxb(2)": {
+            "variable_type": "scalar",
+            "default": 7.86e-02,
+            "units":"T",
+            "range":[0.000000e00, 1.000000e-01]
+        },
+        "phi(1)": {
+            "variable_type": "scalar",
+            "default" : 1.72e00,
+            "units":"degrees",
+            "range": [-1.000000e01, 1.000000e01]
+        },
+        "total_charge:value": {
+            "variable_type": "scalar",
+            "default": 75.0,
+            "units": "Pico-Coulombs",
+            "range": [0, 300]
+        },
+        "in_xmin": {
+            "variable_type": "scalar",
+            "default": -3.684e-04,
+            "units": "m",
+            "range": [-0.0011616, 0.0011635],
+            "parent_variable": "input_image"
+        },
+        "in_ymin": {
+            "variable_type": "scalar",
+            "default": -3.684e-04,
+            "units":"m",
+            "range": [-0.0011497, 0.0011555],
+            "parent_variable": "input_image"
+        },
+        "in_xmax": {
+            "variable_type": "scalar",
+            "default": 3.684e-04,
+            "units":"m",
+            "range":[-0.0011616, 0.0011635],
+            "parent_variable": "input_image"
+        },
+        "in_ymax": {
+            "variable_type": "scalar",
+            "default": 3.684e-04,
+            "units": "m",
+            "range": [-0.0011497, 0.0011555],
+            "parent_variable": "input_image"
+        }
+    },
+    "output_variables": {
+        "x:y": {
+            "variable_type": "image",
+            "axis_units": ["mm", "mm"], 
+            "axis_labels": ["x", "y"],
+            "shape": [50,50],
+            "x_min_variable": "out_xmin",
+            "x_max_variable": "out_xmax", 
+            "y_min_variable": "out_ymin",
+            "y_max_variable": "out_ymax"
+        },
+        "end_core_emit_95percent_x": {
+            "variable_type": "scalar",
+            "default": 0.0, 
+            "units": "m-rad"
+        },
+        "end_core_emit_95percent_y": {
+            "variable_type": "scalar",
+            "default": 0.0, 
+            "units":"m-rad"
+        },
+        "end_core_emit_95percent_z": {
+            "variable_type": "scalar",
+            "default": 0.0, 
+            "units": "m-rad"
+        },
+        "end_mean_kinetic_energy": {
+            "variable_type": "scalar",
+            "default": 0.0, 
+            "units": "eV"
+        },
+        "end_mean_x": {
+            "variable_type": "scalar",
+            "default": 0.0, 
+            "units": "mm"
+        },
+        "end_mean_y": {
+            "variable_type": "scalar",
+            "default": 0.0, 
+            "units": "mm"
+        },
+        "end_n_particle_loss": {
+            "variable_type": "scalar",
+            "default": 0.0, 
+            "units": "number"
+        },
+        "end_norm_emit_x": {
+            "variable_type": "scalar",
+            "default": 0.0, 
+            "units": "m-mrad"
+        },
+        "end_norm_emit_y": {
+            "variable_type": "scalar",
+            "default": 0.0, 
+            "units": "m-mrad"
+        },
+        "end_norm_emit_z": {
+            "variable_type": "scalar",
+            "default": 0.0, 
+            "units": "m-mrad"
+        },
+        "end_sigma_x": {
+            "variable_type": "scalar",
+            "default": 0.0, 
+            "units": "mm"
+        },
+        "end_sigma_xp": {
+            "variable_type": "scalar",
+            "default": 0.0, 
+            "units" : "mrad"
+        },
+        "end_sigma_y": {
+            "variable_type": "scalar",
+            "default": 0.0, 
+            "units": "mm"
+        }, 
+        "end_sigma_yp": {
+            "variable_type": "scalar",
+            "default": 0.0, 
+            "units": "mrad"
+        },
+        "end_sigma_z": {
+            "variable_type": "scalar",
+            "default": 0.0, 
+            "units": "mm"
+        },
+        "end_total_charge": {
+            "variable_type": "scalar",
+            "default": 0.0, 
+            "units": "C"
+        },
+        "out_xmin": {
+            "variable_type": "scalar",
+            "default": 0.0, 
+            "units":"m",
+            "parent_variable": "input_image"
+        },
+        "out_xmax": {
+            "variable_type": "scalar",
+            "default": 0.0, 
+            "units":"m",
+            "parent_variable": "input_image"
+        },
+        "out_ymin": {
+            "variable_type": "scalar",
+            "default": 0.0, 
+            "units":"m",
+            "parent_variable": "input_image"
+        },
+        "out_ymax": {
+            "variable_type": "scalar",
+            "default": 0.0, 
+            "units":"m",
+            "parent_variable": "input_image"
+        }
+    }
+}

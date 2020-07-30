@@ -240,7 +240,6 @@ class MyModel(ScaledModel):
 
         image = input_dictionary["input_image"].reshape(1, 50, 50, 1)
         scalar_inputs = np.array([
-            input_dictionary["laser_radius"],
             input_dictionary["maxb(2)"],
             input_dictionary["phi(1)"],
             input_dictionary["total_charge:value"],
@@ -248,7 +247,7 @@ class MyModel(ScaledModel):
             input_dictionary["in_xmax"],
             input_dictionary["in_ymin"],
             input_dictionary["in_ymax"]
-            ]).reshape((1,8))
+            ]).reshape((1,7))
 
         model_input = [image, scalar_inputs]
         return  model_input
@@ -262,5 +261,3 @@ class MyModel(ScaledModel):
         # unscale
         parsed_output = self.unscale_outputs(parsed_output)
         return parsed_output
-
-

@@ -1,5 +1,6 @@
 import json
 import h5py
+from typing import List
 from lume_model.utils import save_variables
 from lume_model.variables import ImageInputVariable, ImageOutputVariable, ScalarInputVariable, ScalarOutputVariable
 
