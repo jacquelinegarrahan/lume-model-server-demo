@@ -58,18 +58,27 @@ class BaseKerasModel(SurrogateModel, ABC):
 
             else:
                 input_dictionary[variable_name] = self.input_variables[variable_name].default
+        
 
         # MUST IMPLEMENT A format_input METHOD TO CONVERT FROM DICT -> MODEL INPUT
         formatted_input = self.format_input(input_dictionary)
 
         # call prediction in threadsafe manner
         with self.thread_graph.as_default():
-            print("Executing model")
             model_output = self.model.predict(formatted_input)
-            print("Done")
 
         # MUST IMPLEMENT AN OUTPUT -> DICT METHOD
         output = self.parse_output(model_output)
+
+        if not hasattr(self, "prior_output"):
+            self.prior_output = output
+
+        else:
+            for out in output:
+                if not np.array_equal(output[out], self.prior_output[out]):
+                    print(f"OUTPUT HAS CHANGED {out}")
+
+            self.prior_output = output
 
         # PREPARE OUTPUTS WILL FORMAT RETURN VARIABLES (DICT-> VARIABLES)
         return self.prepare_outputs(output)
@@ -205,6 +214,7 @@ class ScaledModel(BaseKerasModel):
                     self.input_variables[input_variable].shape
                 )
 
+
         return data_scaled
 
     def unscale_outputs(self, output_values):
@@ -223,7 +233,7 @@ class ScaledModel(BaseKerasModel):
             # Scale image variable
             elif self.output_variables[output_variable].variable_type == "image":
                 unscaled_image = (
-                    (output_values[output_variable] / (self.model_value_max - self.model_value_min))
+                    output_values[output_variable]
                     + self.output_offsets[output_variable]
                 ) * self.output_scales[output_variable]
 
@@ -283,6 +293,7 @@ class Model(ScaledModel):
             input_dictionary['end_mean_z']
             ]).reshape((1,9))
 
+
         model_input = [scalar_inputs]
         return  model_input
 
@@ -291,19 +302,16 @@ class Model(ScaledModel):
         parsed_output = {}
         image_output = model_output[0][0]
 
-        parsed_output["out_xmax"] = image_output[0]
-        parsed_output["out_ymax"] = image_output[2]
-        parsed_output["out_xmin"] = image_output[1]
-        parsed_output["out_ymin"] = image_output[3]
+        parsed_output["out_xmin"] = image_output[0]
+        parsed_output["out_xmax"] = image_output[1]
+        parsed_output["out_ymin"] = image_output[2]
+        parsed_output["out_ymax"] = image_output[3]
 
-        print(f"xmin: {parsed_output['out_xmin']}")
-        print(f"xmax: {parsed_output['out_xmax']}")
-        print(f"ymin: {parsed_output['out_ymin']}")
-        print(f"ymax: {parsed_output['out_ymax']}")
         parsed_output["x:y"] = image_output[4:].reshape((50,50))
 
         parsed_output.update(dict(zip(self.output_variables.keys(), model_output[1][0].T)))
 
         # unscale
         parsed_output = self.unscale_outputs(parsed_output)
+
         return parsed_output

@@ -9,14 +9,12 @@ from lume_model.utils import load_variables
 from lume_epics.client.widgets.plots import ImagePlot
 from lume_epics.client.widgets.controls import build_sliders
 from lume_epics.client.controller import Controller
-import logging
 
-logging.getLogger().setLevel(logging.DEBUG)
 prefix = "test" # Prefix used by our server
 variable_filename =  "files/surrogate_model_variables_2.pickle"
 input_variables, output_variables = load_variables(variable_filename)
 
-controller = Controller("ca")
+controller = Controller("pva")
 
 inputs = [
           input_variables["distgen:r_dist:sigma_xy:value"], 
