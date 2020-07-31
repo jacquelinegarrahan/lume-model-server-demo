@@ -23,7 +23,7 @@
         "distgen:total_charge:value": {
             "variable_type": "scalar",
             "units": "pC",
-            "default": 0.0,
+            "default": 250.0,
             "range": [
                 250.0,
                 250.0
@@ -68,7 +68,7 @@
         "L0A_scale:voltage": {
             "variable_type": "scalar",
             "units": "V",
-            "default": 0.0,
+            "default": 70000000.0,
             "range": [
                 70000000.0,
                 70000000.0

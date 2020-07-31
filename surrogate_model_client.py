@@ -47,5 +47,4 @@ curdoc().add_root(
                 ) 
     )
 
-
 curdoc().add_periodic_callback(image_plot.update, 250)

@@ -70,16 +70,6 @@ class BaseKerasModel(SurrogateModel, ABC):
         # MUST IMPLEMENT AN OUTPUT -> DICT METHOD
         output = self.parse_output(model_output)
 
-        if not hasattr(self, "prior_output"):
-            self.prior_output = output
-
-        else:
-            for out in output:
-                if not np.array_equal(output[out], self.prior_output[out]):
-                    print(f"OUTPUT HAS CHANGED {out}")
-
-            self.prior_output = output
-
         # PREPARE OUTPUTS WILL FORMAT RETURN VARIABLES (DICT-> VARIABLES)
         return self.prepare_outputs(output)
 
@@ -89,14 +79,14 @@ class BaseKerasModel(SurrogateModel, ABC):
         for variable in self.input_ordering:
             if self.input_variables[variable].variable_type == "scalar":
                 random_input[variable].value = np.random.uniform(
-                    self.input_variables[variable].range[0],
-                    self.input_variables[variable].range[1],
+                    self.input_variables[variable].value_range[0],
+                    self.input_variables[variable].value_range[1],
                 )
 
             else:
                 random_input[variable].value = self.input_variables[variable].default
 
-        pred = self.evaluate(random_input)
+        pred = self.evaluate(list(random_input.values()))
 
         return pred
     
