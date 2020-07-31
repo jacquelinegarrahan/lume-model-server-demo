@@ -233,7 +233,7 @@ class ScaledModel(BaseKerasModel):
         return unscaled_outputs
 
 
-class MyModel(ScaledModel):
+class Model(ScaledModel):
     def format_input(self, input_dictionary):
         # scale inputs
         input_dictionary = self.scale_inputs(input_dictionary)
