@@ -111,15 +111,15 @@ def build_variables_from_description_file(
             if variable_data["variable_type"] == "scalar":
                 output_variables[variable] = ScalarOutputVariable(
                     name=variable,
-                    default=variable_data["default"],
-                    units=variable_data["units"],
+                    default=variable_data.get("default"),
+#                    units=variable_data["units"],
                     parent=variable_data.get("parent"),
                 )
 
             elif variable_data["variable_type"] == "image":
                 output_variables[variable] = ImageOutputVariable(
                     name=variable,
-                    shape=tuple(variable_data["shape"]),
+#                    shape=tuple(variable_data["shape"]),
                     default=variable_data.get("default"),
                     axis_labels=variable_data["axis_labels"],
                     axis_units=variable_data.get("axis_units"),
@@ -198,14 +198,14 @@ def save_model(
 
 if __name__ == "__main__":
     import numpy as np
-    var_file = "files/surrogate_model_variables.pickle"
+    var_file = "files/surrogate_model_variables_2.pickle"
 
-    image = np.load("files/example_input_image.npy").reshape((50,50))
+   # image = np.load("files/example_input_image.npy").reshape((50,50))
 
-    input_extras = {"input_image": {"default": image}}
-    output_extras = {"x:y": {"default": image}}
+    #input_extras = {"input_image": {"default": image}}
+   # output_extras = {"x:y": {"default": image}}
 
     from lume_model.utils import save_variables
-    input_variables, output_variables = build_variables_from_description_file("files/description.json", input_extras=input_extras, output_extras=output_extras)
+    input_variables, output_variables = build_variables_from_description_file("files/LCLS_CU_INJ_SC2IMSC_my_test_description.json")
 
     save_variables(input_variables, output_variables, var_file)

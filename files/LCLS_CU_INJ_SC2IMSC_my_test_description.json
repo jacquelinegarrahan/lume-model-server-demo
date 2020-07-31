@@ -1,0 +1,204 @@
+{
+    "name": "LCLS_CU_inj",
+    "description": "LCLS_CU_inj",
+    "input_variables": {
+        "distgen:r_dist:sigma_xy:value": {
+            "variable_type": "scalar",
+            "units": "mm",
+            "default": 0.3499864352177187,
+            "range": [
+                0.2000128411163704,
+                0.499960029319067
+            ]
+        },
+        "distgen:t_dist:length:value": {
+            "variable_type": "scalar",
+            "units": "ps",
+            "default": 7.499772441611215,
+            "range": [
+                3.0000935388576626,
+                11.999451344364768
+            ]
+        },
+        "distgen:total_charge:value": {
+            "variable_type": "scalar",
+            "units": "pC",
+            "default": 0.0,
+            "range": [
+                250.0,
+                250.0
+            ]
+        },
+        "SOL1:solenoid_field_scale": {
+            "variable_type": "scalar",
+            "units": "T",
+            "default": 0.22499221599728708,
+            "range": [
+                0.15000051301097236,
+                0.29998391898360177
+            ]
+        },
+        "CQ01:b1_gradient": {
+            "variable_type": "scalar",
+            "units": "T/m",
+            "default": -1.3154721900995175e-06,
+            "range": [
+                -0.009999961444754046,
+                0.009997330500373847
+            ]
+        },
+        "SQ01:b1_gradient": {
+            "variable_type": "scalar",
+            "units": "T/m",
+            "default": -7.134728136660995e-07,
+            "range": [
+                -0.009999874709425056,
+                0.009998447763797722
+            ]
+        },
+        "L0A_phase:dtheta0_deg": {
+            "variable_type": "scalar",
+            "units": "deg",
+            "default": -7.499735189310638,
+            "range": [
+                -24.999227856965984,
+                9.99975747834471
+            ]
+        },
+        "L0A_scale:voltage": {
+            "variable_type": "scalar",
+            "units": "V",
+            "default": 0.0,
+            "range": [
+                70000000.0,
+                70000000.0
+            ]
+        },
+        "end_mean_z": {
+            "variable_type": "scalar",
+            "units": "m",
+            "default": 4.6147002,
+            "range": [
+                4.6143255,
+                4.6150749
+            ]
+        }
+    },
+    "output_variables": {
+        "end_n_particle": {
+            "variable_type": "scalar",
+            "units": "1"
+        },
+        "end_mean_gamma": {
+            "variable_type": "scalar",
+            "units": "1"
+        },
+        "end_sigma_gamma": {
+            "variable_type": "scalar",
+            "units": "1"
+        },
+        "end_mean_x": {
+            "variable_type": "scalar",
+            "units": "m"
+        },
+        "end_mean_y": {
+            "variable_type": "scalar",
+            "units": "m"
+        },
+        "end_norm_emit_x": {
+            "variable_type": "scalar",
+            "units": "m"
+        },
+        "end_norm_emit_y": {
+            "variable_type": "scalar",
+            "units": "m"
+        },
+        "end_norm_emit_z": {
+            "variable_type": "scalar",
+            "units": "m"
+        },
+        "end_sigma_x": {
+            "variable_type": "scalar",
+            "units": "m"
+        },
+        "end_sigma_y": {
+            "variable_type": "scalar",
+            "units": "m"
+        },
+        "end_sigma_z": {
+            "variable_type": "scalar",
+            "units": "m"
+        },
+        "end_mean_px": {
+            "variable_type": "scalar",
+            "units": "eV/c"
+        },
+        "end_mean_py": {
+            "variable_type": "scalar",
+            "units": "eV/c"
+        },
+        "end_mean_pz": {
+            "variable_type": "scalar",
+            "units": "eV/c"
+        },
+        "end_sigma_px": {
+            "variable_type": "scalar",
+            "units": "eV/c"
+        },
+        "end_sigma_py": {
+            "variable_type": "scalar",
+            "units": "eV/c"
+        },
+        "end_sigma_pz": {
+            "variable_type": "scalar",
+            "units": "eV/c"
+        },
+        "end_higher_order_energy_spread": {
+            "variable_type": "scalar",
+            "units": "eV"
+        },
+        "end_cov_x__px": {
+            "variable_type": "scalar",
+            "units": "m-eV/c"
+        },
+        "end_cov_z__pz": {
+            "variable_type": "scalar",
+            "units": "m-eV/c"
+        },
+        "end_cov_y__py": {
+            "variable_type": "scalar",
+            "units": "m-eV/c"
+        },
+        "x:y": {
+            "variable_type": "image",
+            "axis_units": [
+                "mm",
+                "mm"
+            ],
+            "axis_labels": [
+                "x",
+                "y"
+            ],
+            "x_min_variable": "out_xmin",
+            "x_max_variable": "out_xmax",
+            "y_min_variable": "out_ymin",
+            "y_max_variable": "out_ymax"
+        },
+        "out_xmin": {
+            "variable_type": "scalar",
+            "parent_variable": "x:y"
+        },
+        "out_xmax": {
+            "variable_type": "scalar",
+            "parent_variable": "x:y"
+        },
+        "out_ymin": {
+            "variable_type": "scalar",
+            "parent_variable": "x:y"
+        },
+        "out_ymax": {
+            "variable_type": "scalar",
+            "parent_variable": "x:y"
+        }
+    }
+}
