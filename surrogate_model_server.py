@@ -1,7 +1,6 @@
 from lume_epics.epics_server import Server
 from surrogate_model import Model
 from lume_model.utils import load_variables
-import tensorflow as tf
 import argparse
 
 parser = argparse.ArgumentParser()
