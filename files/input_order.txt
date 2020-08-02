@@ -1,0 +1,9 @@
+distgen:r_dist:sigma_xy:value
+distgen:t_dist:length:value
+distgen:total_charge:value
+SOL1:solenoid_field_scale
+CQ01:b1_gradient
+SQ01:b1_gradient
+L0A_phase:dtheta0_deg
+L0A_scale:voltage
+end_mean_z
