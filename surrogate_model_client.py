@@ -11,14 +11,21 @@ from lume_epics.client.widgets.controls import build_sliders
 from lume_epics.client.controller import Controller
 
 prefix = "test" # Prefix used by our server
-variable_filename =  "files/surrogate_model_variables.pickle"
+variable_filename =  "files/surrogate_model_variables_2.pickle"
 input_variables, output_variables = load_variables(variable_filename)
 
 controller = Controller("pva")
 
-inputs = [input_variables["phi(1)"], 
-          input_variables["maxb(2)"],
-          input_variables["total_charge:value"],
+inputs = [
+          input_variables["distgen:r_dist:sigma_xy:value"], 
+          input_variables["distgen:t_dist:length:value"],
+#          input_variables["distgen:total_charge:value"],
+          input_variables["SOL1:solenoid_field_scale"],
+          input_variables["CQ01:b1_gradient"],
+          input_variables["SQ01:b1_gradient"],
+          input_variables["L0A_phase:dtheta0_deg"],
+    #      input_variables["L0A_scale:voltage"],
+          input_variables["end_mean_z"]
         ]
 
 sliders = build_sliders(inputs, controller, prefix)
@@ -39,6 +46,5 @@ curdoc().add_root(
                 column(sliders, width=350), column(image_plot.plot)
                 ) 
     )
-
 
 curdoc().add_periodic_callback(image_plot.update, 250)
