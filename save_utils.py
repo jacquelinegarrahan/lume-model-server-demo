@@ -133,39 +133,6 @@ def build_variables_from_description_file(
     return input_variables, output_variables
 
 
-def save_model(
-    model_file: str,  # model
-    description_filename: str,
-    variable_filename: str,
-    input_variable_extras: dict = None,
-    output_variable_extras: dict = None,
-):
-    """
-    Utility function for saving the model.
-    Args:
-        model_file (str): Model saved with the keras model.save() method
-        description_file (str): Description filename.
-        input_variable_extras (dict): Additional keys used for building input variables.
-        output_variable_extras (dict): Additional keys used for building output variables.
-        variable_filename (str): File for saving variables.
-    """
-
-    # Everything will be saved into this h5
-    h = h5py.File(model_file, "a")
-
-    with open(description_file) as d:
-        description = dict(json.load(d))
-
-    h.attrs.create("input_ordering", list(description["input_variables"].keys()))
-    h.attrs.create("output_ordering", list(description["output_variables"].keys()))
-    h.close()
-
-    # save variables
-    input_variables, output_variables = build_variables_from_description_file(
-        description_file, input_extras, output_extras
-    )
-    save_variables(input_variables, output_variables, variable_filename)
-
 if __name__ == "__main__":
     import numpy as np
     var_file = "files/surrogate_model_variables_2.pickle"

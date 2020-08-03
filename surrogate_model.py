@@ -455,10 +455,6 @@ class CustomBaseKerasModel(SurrogateModel, ABC):
 
 class AutoScaledModel(CustomBaseKerasModel):
     def format_input(self, input_dictionary):
-        # scale inputs
-     #   input_dictionary = self.scale_inputs(input_dictionary)
-
-        #image = input_dictionary["input_image"].reshape(1, 50, 50, 1)
         scalar_inputs = np.array([
             input_dictionary['distgen:r_dist:sigma_xy:value'],
             input_dictionary['distgen:t_dist:length:value'],
@@ -479,7 +475,6 @@ class AutoScaledModel(CustomBaseKerasModel):
     def parse_output(self, model_output):        
         parsed_output = {}
         parsed_output["x:y"] = model_output[0][0].reshape((50,50))
-
 
         # NTND array attributes MUST BE FLOAT 64!!!! np.float() should be moved to lume-epics
         parsed_output["out_xmin"] = np.float64(model_output[1][0][0])
