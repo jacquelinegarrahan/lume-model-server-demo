@@ -134,60 +134,30 @@ def build_variables_from_description_file(
 
 
 def save_model(
-    weight_file: str,  # model
+    model_file: str,  # model
     description_filename: str,
-    input_scales: List[float],
-    input_offsets: List[float],
-    output_scales: List[float],
-    output_offsets: List[float],
     variable_filename: str,
     input_variable_extras: dict = None,
     output_variable_extras: dict = None,
-    lower: float = -1,
-    upper: float = 1,
-    arch_json: str = None,
-    arch_json_file: bool = True,
 ):
     """
     Utility function for saving the model.
     Args:
-        weight_file (str): Model weight filename.
+        model_file (str): Model saved with the keras model.save() method
         description_file (str): Description filename.
-        input_scales (List[float]): List of values used for input scaling.
-        input_offsets (List[float]): Offsets for input variables.
-        output_scales (List[float]): List of values used for output scaling.
-        output_offsets (List[float]): Offsets for output variables.
-        lower (float): Lower bound on variable scaling.
-        upper (float): Upper bound on variable scaling.
-        arch_json (str): JSON representation of model architecture.
-        arch_json_file (str): File holding JSON representation of model architecture.
         input_variable_extras (dict): Additional keys used for building input variables.
         output_variable_extras (dict): Additional keys used for building output variables.
         variable_filename (str): File for saving variables.
     """
 
     # Everything will be saved into this h5
-    h = h5py.File(weight_file, "a")
-
-    # Contains model architecture as JSON string
-    if JSONFile:
-        f = open(archjson, "r")
-        json_string = f.read()
-        h.attrs.create("JSON", fstr(json_string))
-    else:
-        h.attrs.create("JSON", fstr(archjson))
+    h = h5py.File(model_file, "a")
 
     with open(description_file) as d:
         description = dict(json.load(d))
 
     h.attrs.create("input_ordering", list(description["input_variables"].keys()))
     h.attrs.create("output_ordering", list(description["output_variables"].keys()))
-    h.attrs.create("input_scales", input_scales)
-    h.attrs.create("input_offsets", input_offsets)
-    h.attrs.create("output_scales", output_scales)
-    h.attrs.create("output_offsets", output_offsets)
-    h.attrs.create("lower", lower)
-    h.attrs.create("upper", upper)
     h.close()
 
     # save variables
@@ -199,11 +169,6 @@ def save_model(
 if __name__ == "__main__":
     import numpy as np
     var_file = "files/surrogate_model_variables_2.pickle"
-
-   # image = np.load("files/example_input_image.npy").reshape((50,50))
-
-    #input_extras = {"input_image": {"default": image}}
-   # output_extras = {"x:y": {"default": image}}
 
     from lume_model.utils import save_variables
     input_variables, output_variables = build_variables_from_description_file("files/LCLS_CU_INJ_SC2IMSC_my_test_description.json")
