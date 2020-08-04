@@ -1,4 +1,4 @@
 #!/bin/bash
-nohup python surrogate_model_server.py & disown
+systemd-run --scope --user python surrogate_model_server.py 
 
 exec "$@"
