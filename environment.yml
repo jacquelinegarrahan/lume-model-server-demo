@@ -10,4 +10,5 @@ dependencies:
   - pip
   - pip:
     - tensorflow-cpu
+    - jupyter-server-proxy
     
