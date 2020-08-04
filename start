@@ -1,3 +1,4 @@
 #!/bin/bash
-sudo bash -c "nohup python surrogate_model_server.py &"
+python surrogate_model_server.py & disown
+
 exec "$@"
