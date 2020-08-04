@@ -9,5 +9,5 @@ dependencies:
   - jrgarrahan::lume-model
   - pip
   - pip:
-    - tensorflow
+    - tensorflow-cpu
     
