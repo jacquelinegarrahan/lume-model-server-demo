@@ -1,4 +1,4 @@
 #!/bin/bash
-python surrogate_model_server.py  > surrogate_server.log &
+nohup python surrogate_model_server.py  > surrogate_server.log &
 bg
 exec "$@"
