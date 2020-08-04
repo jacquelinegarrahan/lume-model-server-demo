@@ -1,4 +1,4 @@
 #!/bin/bash
-systemd-run --scope --user python surrogate_model_server.py 
-
+python surrogate_model_server.py  > surrogate_server.log &
+bg
 exec "$@"
