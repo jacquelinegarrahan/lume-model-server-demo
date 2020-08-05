@@ -1,5 +1,4 @@
 #!/bin/bash
-ifconfig -a > net.log
-ifconfig eth0 broadcast 172.17.255.255 > net.log
+export EPICS_CAS_INTF_ADDR_LIST="localhost"
 python surrogate_model_server.py > server.log 2> server_error.log &
 exec "$@"
