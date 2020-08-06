@@ -111,8 +111,7 @@ def build_variables_from_description_file(
             if variable_data["variable_type"] == "scalar":
                 output_variables[variable] = ScalarOutputVariable(
                     name=variable,
-                    default=variable_data.get("default"),
-#                    units=variable_data["units"],
+                    default=variable_data.get("default"),    units=variable_data.get("units"),
                     parent=variable_data.get("parent"),
                 )
 
