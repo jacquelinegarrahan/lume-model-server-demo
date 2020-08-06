@@ -1,3 +1,11 @@
 #!/bin/bash
-nohup python surrogate_model_server.py --no-monitor &
-exec
+export EPICS_CAS_INTF_ADDR_LIST="localhost"
+export EPICS_CA_ADDR_LIST="localhost"
+export EPICS_CA_AUTO_ADDR_LIST=NO
+export EPICS_PVAS_INTF_ADDR_LIST="localhost"
+export EPICS_PVA_ADDR_LIST="localhost"
+export EPICS_PVA_AUTO_ADDR_LIST=NO
+python surrogate_model_server.py > server.log 2> server_error.log &
+python pre_notebook_test.py > pre_notebook_test
+python pre_notebook_with_broadcast.py > pre_notebook_with_broadcast
+exec "$@"
