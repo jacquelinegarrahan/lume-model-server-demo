@@ -1,6 +1,6 @@
 # Jupyter notebook demo of lume-model and lume-epics
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/jacquelinegarrahan/lume-model-server-demo/master)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/jacquelinegarrahan/lume-model-server-demo/binder?urlpath=/proxy/5006/surrogate_model_client)
 
 This repository contains demo notebooks for serving online models using the [lume-model](https://github.com/slaclab/lume-model) and [lume-epics](https://github.com/slaclab/lume-epics). A simple demo is included outlining an implementation of a minimal model using the tools, as well as an example of an more complicated surrogate model.
 
