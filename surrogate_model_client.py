@@ -8,13 +8,15 @@ from bokeh.io import curdoc
 from lume_model.utils import load_variables
 from lume_epics.client.widgets.plots import ImagePlot
 from lume_epics.client.widgets.controls import build_sliders
+import os.environ["EPICS_CA_ADDR_LIST"]="0.0.0.0"
+
 from lume_epics.client.controller import Controller
 
 prefix = "test" # Prefix used by our server
 variable_filename =  "files/surrogate_model_variables_2.pickle"
 input_variables, output_variables = load_variables(variable_filename)
 
-controller = Controller("pva")
+controller = Controller("ca")
 
 inputs = [
           input_variables["distgen:r_dist:sigma_xy:value"], 
