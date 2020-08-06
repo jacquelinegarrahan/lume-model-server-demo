@@ -5,10 +5,3 @@ jupyter serverextension enable --sys-prefix jupyter_server_proxy
 mv bokehserverextension.py ${NB_PYTHON_PREFIX}/lib/python*/site-packages/
 # enable bokeh extension
 jupyter serverextension enable --sys-prefix bokehserverextension
-
-export EPICS_CAS_INTF_ADDR_LIST="localhost"
-export EPICS_CA_AUTO_ADDR_LIST=NO
-
-# mv epicsserverextension.py ${NB_PYTHON_PREFIX}/lib/python*/site-packages/
-# enable epics extension
-# jupyter serverextension enable --sys-prefix epicsserverextension
