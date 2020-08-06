@@ -1,0 +1,13 @@
+name: lume-model-server-demo
+dependencies:
+  - python=3.7
+  - conda-forge::jupyterlab
+  - bokeh::jupyter_bokeh
+  - conda-forge::notebook
+  - anaconda::ipykernel
+  - jrgarrahan::lume-epics
+  - jrgarrahan::lume-model
+  - pip
+  - pip:
+    - tensorflow
+    
