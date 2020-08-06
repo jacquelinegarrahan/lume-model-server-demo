@@ -8,7 +8,8 @@ from bokeh.io import curdoc
 from lume_model.utils import load_variables
 from lume_epics.client.widgets.plots import ImagePlot
 from lume_epics.client.widgets.controls import build_sliders
-import os.environ["EPICS_CA_ADDR_LIST"]="0.0.0.0"
+import os
+os.environ["EPICS_CA_ADDR_LIST"]="0.0.0.0"
 
 from lume_epics.client.controller import Controller
 
