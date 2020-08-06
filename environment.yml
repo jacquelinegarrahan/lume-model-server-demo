@@ -4,6 +4,7 @@ dependencies:
   - bokeh::jupyter_bokeh
   - jrgarrahan::lume-epics
   - jrgarrahan::lume-model
+  - numpy
   - pip
   - pip:
     - tensorflow-cpu
