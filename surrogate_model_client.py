@@ -14,7 +14,7 @@ prefix = "test" # Prefix used by our server
 variable_filename =  "files/surrogate_model_variables_2.pickle"
 input_variables, output_variables = load_variables(variable_filename)
 
-controller = Controller("ca")
+controller = Controller("pva")
 
 inputs = [
           input_variables["distgen:r_dist:sigma_xy:value"], 
