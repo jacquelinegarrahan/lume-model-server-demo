@@ -18,7 +18,7 @@ A conda installation is required for setting up the required packages and the co
 
 Create the environment using conda and the environment.yml file included with the repository:
 
-``` $ conda env create -f environment.yml ```
+``` $ conda env create -f local-environment.yml ```
 
 Activate the environment:
 
