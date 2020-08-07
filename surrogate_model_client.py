@@ -110,8 +110,8 @@ def table_update_callback():
 
 striptool.plot.height = 450
 striptool.plot.width = 450
-image_plot.plot.width = 475
-image_plot.plot.height = 500
+image_plot.plot.width = 510
+image_plot.plot.height = 475
 value_table.table.height= 450
 
 
