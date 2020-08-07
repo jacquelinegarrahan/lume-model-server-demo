@@ -111,7 +111,7 @@ def table_update_callback():
 striptool.plot.height = 450
 striptool.plot.width = 450
 image_plot.plot.width = 475
-image_plot.plot.height = 475 
+image_plot.plot.height = 500
 value_table.table.height= 450
 
 
@@ -122,7 +122,7 @@ curdoc().title = "LCLS Cu Injector"
 #row(Div(text="LCLS Cu Injector")),
 curdoc().add_root(
             column(
-            row(Spacer(width = 520), Div(text="<h1 style='text-align:center;'>LCLS Cu Injector</h1>")),
+            row(Spacer(width = 540), Div(text="<h1 style='text-align:center;'>LCLS Cu Injector</h1>")),
 
             row(
                     column(striptool_select, striptool.plot), 
