@@ -172,8 +172,8 @@
         "x:y": {
             "variable_type": "image",
             "axis_units": [
-                "mm",
-                "mm"
+                "m",
+                "m"
             ],
             "axis_labels": [
                 "x",
