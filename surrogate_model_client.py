@@ -19,7 +19,7 @@ prefix = "test" # Prefix used by our server
 variable_filename =  "files/surrogate_model_variables_2.pickle"
 input_variables, output_variables = load_variables(variable_filename)
 
-controller = Controller("pva")
+controller = Controller("ca")
 
 inputs = [
           input_variables["distgen:r_dist:sigma_xy:value"], 
@@ -120,6 +120,7 @@ value_table.table.height= 450
 curdoc().title = "LCLS Cu Injector"
 
 #row(Div(text="LCLS Cu Injector")),
+bokeh_sliders = [slider.bokeh_slider for slider in sliders]
 curdoc().add_root(
             column(
             row(Spacer(width = 540), Div(text="<h1 style='text-align:center;'>LCLS Cu Injector</h1>")),
@@ -129,7 +130,7 @@ curdoc().add_root(
                     column(Spacer(height=10), value_table.table), column(Spacer( height=10), image_plot.plot),
             ),
             row(
-                Spacer(width=350),column(sliders[:4]), column(sliders[4:])
+                Spacer(width=350),column(bokeh_sliders[:4]), column(bokeh_sliders[4:])
                 ) ,
             )
     )
@@ -137,3 +138,5 @@ curdoc().add_root(
 curdoc().add_periodic_callback(image_plot.update, 250)
 curdoc().add_periodic_callback(table_update_callback, 250)
 curdoc().add_periodic_callback(striptool_update_callback, 250)
+for slider in sliders:
+    curdoc().add_periodic_callback(slider.update, 250)
