@@ -2,7 +2,7 @@ name: lume-model-server-demo
 dependencies:
   - python=3.7
   - bokeh::jupyter_bokeh
-  - jrgarrahan::lume-epics==0.3
+  - jrgarrahan::lume-epics==0.4
   - jrgarrahan::lume-model==0.2
   - pip
   - pip:
