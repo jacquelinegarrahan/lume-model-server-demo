@@ -8,3 +8,4 @@ dependencies:
   - pip:
     - tensorflow-cpu
     - jupyter-server-proxy
+    -  git+git://github.com/jacquelinegarrahan/lume-epics@initial_put_fix
