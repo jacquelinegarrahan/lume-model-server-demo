@@ -5,7 +5,7 @@
         "distgen:r_dist:sigma_xy:value": {
             "variable_type": "scalar",
             "units": "mm",
-            "default": 0.3499864352177187,
+            "default": 0.4310,
             "range": [
                 0.2000128411163704,
                 0.499960029319067
@@ -32,7 +32,7 @@
         "SOL1:solenoid_field_scale": {
             "variable_type": "scalar",
             "units": "T",
-            "default": 0.22499221599728708,
+            "default": 0.2460,
             "range": [
                 0.15000051301097236,
                 0.29998391898360177
@@ -41,7 +41,7 @@
         "CQ01:b1_gradient": {
             "variable_type": "scalar",
             "units": "T/m",
-            "default": -1.3154721900995175e-06,
+            "default": -0.0074,
             "range": [
                 -0.009999961444754046,
                 0.009997330500373847
@@ -50,7 +50,7 @@
         "SQ01:b1_gradient": {
             "variable_type": "scalar",
             "units": "T/m",
-            "default": -7.134728136660995e-07,
+            "default": -0.0046,
             "range": [
                 -0.009999874709425056,
                 0.009998447763797722
@@ -59,7 +59,7 @@
         "L0A_phase:dtheta0_deg": {
             "variable_type": "scalar",
             "units": "deg",
-            "default": -7.499735189310638,
+            "default": -8.8997,
             "range": [
                 -24.999227856965984,
                 9.99975747834471
