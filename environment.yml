@@ -1,9 +1,12 @@
 name: lume-model-server-demo
+channels:
+  - jrgarrahan
+  - bokeh
 dependencies:
   - python=3.7
-  - bokeh::jupyter_bokeh==2.0.3
-  - jrgarrahan::lume-epics==0.4
-  - jrgarrahan::lume-model==0.2
+  - jupyter_bokeh==2.0.3
+  - lume-epics==0.4
+  - lume-model==0.2
   - pip
   - pip:
     - tensorflow-cpu==2.3.0
